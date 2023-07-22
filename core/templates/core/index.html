@@ -1,0 +1,26 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <div class="flex justify-center items-center h-screen">
+        <div class="w-96 bg-white p-8 shadow-lg rounded-lg -mt-60">
+            <h2 class="text-3xl font-semibold mb-6">Login</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username:</label>
+                    <input type="text" id="username" name="username" class="border rounded-md py-2 px-3 w-full" required>
+                </div>
+                <div class="mb-6">
+                    <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
+                    <input type="password" id="password" name="password" class="border rounded-md py-2 px-3 w-full" required>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Entrar</button>
+                    <a href="#" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Esqueceu a senha?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
