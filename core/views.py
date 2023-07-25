@@ -26,6 +26,10 @@ def ativos_view(request):
     return render(request, 'dashboard/Ativos/dashboardAtivos.html')
 
 @login_required
+def ativosEstatisticas_view(request):
+    return render(request, 'dashboard/estatisticasAleatorias.html')
+
+@login_required
 def estatisticasAleatorias_view(request):
     return render(request, 'dashboard/estatisticasAleatorias.html')
 
