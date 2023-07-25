@@ -1,0 +1,69 @@
+<!-- dashboard/dashboard.html -->
+{% extends 'dashboard/baseDashboard.html' %}
+
+{% block title %}Sistema ETE{% endblock %}
+
+{% block content %}
+
+    <div class="px-6 py-6">
+        <div class="grid grid-cols-4 gap-6">
+            <div class="bg-blue-200 aspect-square shadow-inner bg-gray-200 rounded-lg border-2 shadow-lg">
+                <div class="p-4">
+                    <h3 class="font-bold text-3xl">Gestão de ativos</h3>
+                    <div class="grid grid-rows-3 text-2xl mt-4 font-medium">
+                        <span>● Documentação</span>
+                        <span>● Maquinários</span>
+                        <span>● Sensores</span>
+                        <span>● Armazenamento</span>
+                        <span>● Sistema de drenagem</span>
+                    </div>
+                    <div class="flex justify-center gap-5 items-center border-b border-gray-200 text-center mt-8 mb-5">
+                        <a href="/dashboard/ativos" class="w-1/2 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Acessar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-blue-200 aspect-square shadow-inner bg-gray-200 rounded-lg border-2 shadow-lg">
+                <div class="p-4">
+                    <h3 class="font-bold text-3xl">Análise de Dados</h3>
+                    <div class="grid grid-rows-3 text-2xl mt-5 font-medium">
+                        <span>● PH</span>
+                        <span>● Contentração de metal</span>
+                        <span>● Potabilidade</span>
+                        <span>● Contaminação</span>
+                        <span>● Sedimentação</span>
+                    </div>
+                    <div class="flex justify-center gap-5 items-center border-b border-gray-200 text-center mt-8 mb-5">
+                        <a href="/dashboard/estatisticasAleatorias" class="w-1/2 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Acessar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-200 aspect-square shadow-inner bg-grya-200 rounded-lg border-2 shadow-lg">
+                <div class="p-4">
+                    <h3 class="font-bold text-3xl">Dados Ambientais</h3>
+                    <div class="grid grid-rows-3 text-2xl mt-5 font-medium">
+                        <span>● Coleta</span>
+                        <span>● Análise</span>
+                        <span>● Relatório</span>
+                        <span>● Armazenagem</span>
+                    </div>
+                    <div class="flex justify-center gap-5 items-center border-b border-gray-200 text-center mt-8 mb-5">
+                        <a href="/dashboard/estatisticasAleatorias" class="w-1/2 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Acessar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-blue-200 aspect-square shadow-inner bg-gray-200 rounded-lg border-2 shadow-lg">
+                <div class="p-4">
+                    <h3 class="font-bold text-3xl">Informações Geográficas</h3>
+                    <div class="grid grid-rows-3 text-2xl mt-5 font-medium">
+                        <span>● Dados geoespaciais</span>
+                        <span>● Mapas</span>
+                        <span>● Planejamento de rotas</span>
+                    </div>
+                    <div class="flex justify-center gap-5 items-center border-b border-gray-200 text-center mt-8 mb-5">
+                        <a href="/dashboard/estatisticasAleatorias" class="w-1/2 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Acessar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

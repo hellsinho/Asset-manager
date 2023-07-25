@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!5&(ar93^w7v!0rkkjgaivd*cu5tvzn+vk35-#a3ac^d!525=n'
+SECRET_KEY = 'django-insecure-qfy2ol4v(9%bju1v&o9a!y46xim3r*u5$na#)3)5#%a6l3c$bh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
+    'core'
 ]
 
 MIDDLEWARE = [
@@ -50,20 +50,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-]
-
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/'  # Página para redirecionar após o login bem-sucedido
-LOGOUT_REDIRECT_URL = '/'  # Página para redirecionar após o logout
-
 ROOT_URLCONF = 'puddle.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, '../core/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
