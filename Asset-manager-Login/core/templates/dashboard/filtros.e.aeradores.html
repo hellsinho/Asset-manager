@@ -1,0 +1,41 @@
+{% extends 'baseTailWindCss.html' %}
+
+{% block title %}Filtros e Aeradores{% endblock %}
+
+{% block content %}
+</head>
+
+<body>
+<nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200 bg-blue-500">
+    <a href="/dashboard" class="text-5xl font-bold text-white px-10">Aeradores e Filtros</a>
+    <div class="space-x-6 px-20">
+    </div>
+</nav> 
+<div class="px-3 py-3">
+    <div class="grid-cols-4 gap-6">
+        <div class="bg-blue-200 shadow-inner bg-gray-200 rounded-lg border-2 shadow-lg">
+            <div class="p-4">
+                <h3 class="font-bold text-4xl">Aeradores</h3>
+                <div class="grid grid-rows-3 text-2xl mt-4 font-medium">
+                    <span>● Tanque de aeração</span>
+                    <span>● Concentração de oxigênio na água</span>
+                </div>
+            </div>
+        </div>
+
+            </div>
+        </div>
+
+<div class="px-3 py-3">
+    <div class="grid-cols-4 gap-6">
+        <div class="bg-blue-200 shadow-inner bg-gray-200 rounded-lg border-2 shadow-lg">
+            <div class="p-4">
+                <h3 class="font-bold text-4xl">Filtros</h3>
+                <div class="grid grid-rows-3 text-2xl mt-4 font-medium">
+                    <span>● Filtragem por carvão ativo</span>
+                    <span>● Tratamento com resina aniônica</span>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
