@@ -5,7 +5,7 @@
 {% block title %}Dashboard de Controle - Ativos{% endblock %}
 
 {% block content %}
-    <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200 bg-blue-500">
+    <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200 bg-blue-600">
         <a href="/dashboard" class="text-6xl font-bold text-white px-10 flex items-center">
             <span class="mr-2">&#8592;</span>
         </a>
@@ -98,7 +98,7 @@
             // Usar SweetAlert2 para mostrar o diálogo de confirmação
             Swal.fire({
                 title: 'Confirmação',
-                text: `Tem certeza que deseja ${button.innerText.toLowerCase()} o processo`,
+                text: `Tem certeza que deseja ${button.innerText.toLowerCase()} o processo?`,
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

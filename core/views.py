@@ -45,6 +45,9 @@ def controlarHistorico_view(request):
 def analisar_view(request):
     return render(request, 'dashboard/Analisar/dashboardAnalise.html')
 
+@login_required
+def filtroseaeradores_view(request):
+    return render(request, 'dashboard/FiltroAeradores/filtros.e.aeradores.html')
 
 
 
