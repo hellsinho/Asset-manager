@@ -91,7 +91,16 @@
         </div>
     </div>
     <script>
+        const ativos = {
+            'floculacao': 'Unidade de Floculação',
+            'coagulacao': 'Sistema de Coagulação',
+            'precipitacao': 'Unidade de Precipitação',
+            'ajuste-pH': 'Tanque de Ajuste de pH',
+        };
+
         function toggleStatus(ativoId) {
+            console.log("Valor de ativoId:", ativoId); // Log para depuração
+
             const button = document.getElementById(`btn-${ativoId}`);
             const statusSpan = document.getElementById(`${ativoId}-status`);
 
@@ -107,6 +116,32 @@
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
+                    const novoStatus = (button.innerText === "Ativar") ? "Ativado" : "Desativado";
+                    const descricaoAtivo = ativos[ativoId];
+
+                    // Aqui, envie uma requisição AJAX para o backend para registrar a ação no histórico
+                    fetch('/dashboard/controlar/registra_historico/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}',
+                            'X-Requested-With': 'XMLHttpRequest',
+                        },
+                        body: JSON.stringify({
+                            ativo: ativoId,
+                            acao: novoStatus,
+                        }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            // O histórico foi registrado com sucesso. Atualize a página para mostrar o registro mais recente.
+                            window.location.reload();
+                        })
+                        .catch(error => {
+                            // Lidar com erros na requisição AJAX, se necessário.
+                            console.error('Erro na requisição AJAX:', error);
+                        });
+
                     if (button.innerText === "Ativar") {
                         button.innerText = "Desativar";
                         button.classList.remove("bg-green-500");
@@ -118,25 +153,6 @@
                         button.classList.add("bg-green-500");
                         statusSpan.innerText = "Status: Desativado";
                     }
-                    // Aqui, envie uma requisição AJAX para o backend para registrar a ação no histórico
-                    fetch('dashboard/controlar/registra_historico/', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': '{{ csrf_token }}', // Certifique-se de que o token CSRF esteja disponível na página
-                        },
-                        body: JSON.stringify({
-                            ativo: ativoId,
-                            acao: button.innerText,
-                        }),
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            // O histórico foi registrado com sucesso. Você pode fazer algo com a resposta do servidor, se necessário.
-                        })
-                        .catch(error => {
-                            // Lidar com erros na requisição AJAX, se necessário.
-                        });
                 }
             });
         }
