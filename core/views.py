@@ -49,6 +49,13 @@ def analisar_view(request):
 def filtroseaeradores_view(request):
     return render(request, 'dashboard/FiltroAeradores/filtros.e.aeradores.html')
 
+@login_required
+def armazenamento_view(request):
+    return render(request, 'dashboard/Armazenamento/dashboardarmazenamento.html')
+
+@login_required
+def gradeamento_view(request):
+    return render(request, 'dashboard/Gradeamento/dashboardgradeamento.html')
 
 
 
