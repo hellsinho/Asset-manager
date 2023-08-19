@@ -93,10 +93,11 @@ def armazenamento_view(request):
 def gradeamento_view(request):
     return render(request, 'dashboard/Gradeamento/dashboardgradeamento.html')
 
+import json
+import time  # Importe a biblioteca time
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import HistoricoAtivacao
-import json
 
 @csrf_exempt
 @login_required
@@ -108,10 +109,18 @@ def registra_historico(request):
         usuario = request.user if request.user.is_authenticated else None
 
         if ativo and acao:
+            # Registra a ação no histórico imediatamente
             HistoricoAtivacao.objects.create(ativo=ativo, acao=acao, usuario=usuario)
+
+            # Se a ação for "Ativado", espere 10 segundos e registre automaticamente a desativação
+            if acao == "Ativado":
+                time.sleep(10)  # Espera por 10 segundos
+                HistoricoAtivacao.objects.create(ativo=ativo, acao="Desativado automaticamente", usuario=None)
+
             return JsonResponse({'success': True})
         else:
             return JsonResponse({'success': False, 'error': 'Dados inválidos.'})
     else:
         return JsonResponse({'success': False, 'error': 'Método inválido.'})
+
 
