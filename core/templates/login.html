@@ -1,0 +1,49 @@
+<!-- login.html -->
+{% extends 'baseLogin.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <div class="flex justify-center items-center h-screen">
+        <div class="w-96 bg-white p-8 shadow-lg rounded-lg -mt-60">
+            <h2 class="text-3xl font-semibold mb-6">Login</h2>
+            {% if error_message %}
+                <p class="text-red-500 mb-4">{{ error_message }}</p>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username:</label>
+                    <input type="text" id="username" name="username" class="border rounded-md py-2 px-3 w-full" required>
+                </div>
+                <div class="mb-6">
+                    <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
+                    <input type="password" id="password" name="password" class="border rounded-md py-2 px-3 w-full" required>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Entrar</button>
+                    <a href="#" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" onclick="showForgotPasswordModal()">Esqueceu a senha?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showForgotPasswordModal() {
+            const modal = document.createElement('div');
+            modal.className = 'fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50';
+            modal.innerHTML = `
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <p>Se você esqueceu a senha, entre em contato conosco pelo e-mail feliperioscross.br@gmail.com.</p>
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4" onclick="hideForgotPasswordModal()">Fechar</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function hideForgotPasswordModal() {
+            const modal = document.querySelector('.bg-opacity-50');
+            modal.parentNode.removeChild(modal);
+        }
+    </script>
+{% endblock %}

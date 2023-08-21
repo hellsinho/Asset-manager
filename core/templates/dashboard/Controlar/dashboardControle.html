@@ -1,0 +1,145 @@
+
+<!-- dashboardControle.html -->
+{% extends 'baseTailWindCss.html' %}
+
+{% block title %}Dashboard de Controle - Ativos{% endblock %}
+
+{% block content %}
+    <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200 bg-blue-600">
+        <a href="/dashboard" class="text-6xl font-bold text-white px-10 flex items-center">
+            <span class="mr-2">&#8592;</span>
+        </a>
+        <a href="#" class="text-6xl font-bold text-white px-10 flex items-center">
+            <span>Dashboard de Controle</span>
+        </a>
+        <!-- Link para a página de histórico -->
+        <a href="/dashboard/controlar/historico" class="text-2xl font-bold text-white px-6">Histórico</a>
+    </nav>
+    <div class="px-6 py-6">
+        <div class="grid grid-cols-4 gap-6">
+            <!-- Exemplo de ativo 1 - Ajuste de pH -->
+            <div class="bg-blue-200 aspect-square shadow-inner bg-gray-100 rounded-lg w-full border-2 shadow-lg">
+                <div class="w-1/3 bg-green-400 py-2 rounded-lg mt-2 ml-2"></div>
+                <div class="mx-3 mt-3">
+                    <h3 class="font-bold text-2xl">Tanque de Ajuste de pH</h3>
+                    <div class="grid grid-rows-4 text-xl mt-5 font-medium gap-y-2">
+                        <span id="ajuste-pH-status" class="status">Status: Desativado</span>
+                        <span>Localização: Sala de tratamento</span>
+                        <span>Etapa: Ajuste de pH</span>
+                    </div>
+                    <!-- Botão de ativar/desativar -->
+                    <div class="flex justify-center items-center mt-2">
+                        <button id="btn-ajuste-pH" class="bg-green-500 text-white py-2 px-4 rounded-full" onclick="toggleStatus('ajuste-pH')">Ativar</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Fim do exemplo de ativo 1 -->
+
+            <!-- Exemplo de ativo 2 - Precipitação -->
+            <div class="bg-blue-200 aspect-square shadow-inner bg-gray-100 rounded-lg w-full border-2 shadow-lg">
+                <div class="w-1/3 bg-red-400 py-2 rounded-lg mt-2 ml-2"></div>
+                <div class="mx-3 mt-3">
+                    <h3 class="font-bold text-2xl">Unidade de Precipitação</h3>
+                    <div class="grid grid-rows-4 text-xl mt-5 font-medium gap-y-2">
+                        <span id="precipitacao-status" class="status">Status: Desativado</span>
+                        <span>Localização: Área de tratamento</span>
+                        <span>Etapa: Precipitação</span>
+                    </div>
+                    <!-- Botão de ativar/desativar -->
+                    <div class="flex justify-center items-center mt-2">
+                        <button id="btn-precipitacao" class="bg-green-500 text-white py-2 px-4 rounded-full" onclick="toggleStatus('precipitacao')">Ativar</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Fim do exemplo de ativo 2 -->
+
+            <!-- Exemplo de ativo 3 - Coagulação -->
+            <div class="bg-blue-200 aspect-square shadow-inner bg-gray-100 rounded-lg w-full border-2 shadow-lg">
+                <div class="w-1/3 bg-yellow-400 py-2 rounded-lg mt-2 ml-2"></div>
+                <div class="mx-3 mt-3">
+                    <h3 class="font-bold text-2xl">Sistema de Coagulação</h3>
+                    <div class="grid grid-rows-4 text-xl mt-5 font-medium gap-y-2">
+                        <span id="coagulacao-status" class="status">Status: Desativado</span>
+                        <span>Localização: Central de tratamento</span>
+                        <span>Etapa: Coagulação</span>
+                    </div>
+                    <!-- Botão de ativar/desativar -->
+                    <div class="flex justify-center items-center mt-2">
+                        <button id="btn-coagulacao" class="bg-green-500 text-white py-2 px-4 rounded-full" onclick="toggleStatus('coagulacao')">Ativar</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Fim do exemplo de ativo 3 -->
+
+            <!-- Exemplo de ativo 4 - Floculação -->
+            <div class="bg-blue-200 aspect-square shadow-inner bg-gray-100 rounded-lg w-full border-2 shadow-lg">
+                <div class="w-1/3 bg-purple-400 py-2 rounded-lg mt-2 ml-2"></div>
+                <div class="mx-3 mt-3">
+                    <h3 class="font-bold text-2xl">Unidade de Floculação</h3>
+                    <div class="grid grid-rows-4 text-xl mt-5 font-medium gap-y-2">
+                        <span id="floculacao-status" class="status">Status: Desativado</span>
+                        <span>Localização: Setor de tratamento</span>
+                        <span>Etapa: Floculação</span>
+                    </div>
+                    <!-- Botão de ativar/desativar -->
+                    <div class="flex justify-center items-center mt-2">
+                        <button id="btn-floculacao" class="bg-green-500 text-white py-2 px-4 rounded-full" onclick="toggleStatus('floculacao')">Ativar</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Fim do exemplo de ativo 4 -->
+        </div>
+    </div>
+    <script>
+        function toggleStatus(ativoId) {
+            const button = document.getElementById(`btn-${ativoId}`);
+            const statusSpan = document.getElementById(`${ativoId}-status`);
+
+            // Usar SweetAlert2 para mostrar o diálogo de confirmação
+            Swal.fire({
+                title: 'Confirmação',
+                text: `Tem certeza que deseja ${button.innerText.toLowerCase()} o processo?`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (button.innerText === "Ativar") {
+                        button.innerText = "Desativar";
+                        button.classList.remove("bg-green-500");
+                        button.classList.add("bg-red-500");
+                        statusSpan.innerText = "Status: Em andamento";
+                    } else {
+                        button.innerText = "Ativar";
+                        button.classList.remove("bg-red-500");
+                        button.classList.add("bg-green-500");
+                        statusSpan.innerText = "Status: Desativado";
+                    }
+                    // Aqui, envie uma requisição AJAX para o backend para registrar a ação no histórico
+                    fetch('dashboard/controlar/registra_historico/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}', // Certifique-se de que o token CSRF esteja disponível na página
+                        },
+                        body: JSON.stringify({
+                            ativo: ativoId,
+                            acao: button.innerText,
+                        }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            // O histórico foi registrado com sucesso. Você pode fazer algo com a resposta do servidor, se necessário.
+                        })
+                        .catch(error => {
+                            // Lidar com erros na requisição AJAX, se necessário.
+                        });
+                }
+            });
+        }
+    </script>
+
+{% endblock %}
