@@ -12,8 +12,9 @@ urlpatterns = [
     path('dashboard/filtros.e.aeradores', views.filtroseaeradores_view, name="filtros"),
     path('dashboard/controlar', views.controlar_view, name='controlar'),
     path('dashboard/controlar/historico', views.controlarHistorico_view, name='controlarHistorico'),
+    path('dashboard/controlar/registra_historico/', views.registra_historico, name='registra_historico'),
     path('dashboard/analisar', views.analisar_view, name='analisar'),
     path('dashboard/armazenamento', views.armazenamento_view, name='Armazenamento'),
     path('dashboard/gradeamento', views.gradeamento_view, name='Gradeamento'),
-    path('dashboard/controlar/registra_historico/', views.registra_historico, name='registra_historico'),
+    path('dashboard/sedimentacao', views.sedimentacao_view, name='sedimentacao'),
 ]

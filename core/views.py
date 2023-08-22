@@ -93,6 +93,10 @@ def armazenamento_view(request):
 def gradeamento_view(request):
     return render(request, 'dashboard/Gradeamento/dashboardgradeamento.html')
 
+@login_required
+def sedimentacao_view(request):
+    return render(request, 'dashboard/Sedimentacao_coleta/sedimentacao.html')
+
 import json
 import time  # Importe a biblioteca time
 from django.http import JsonResponse
