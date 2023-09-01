@@ -1,0 +1,25 @@
+{% extends 'baseTailWindCss.html'%}
+
+{% block title %}statis{% endblock %}
+
+{% block content %}
+<nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200 bg-blue-600">
+        <a href="/dashboard" class="text-5xl font-bold text-white px-10">SISTEMA ETE</a>
+
+        <div class="space-x-6 px-20">
+            <a href="#" class="text-2xl font-bold text-white hover: text-black-500">Nome do Ativo</a>
+        </div>
+    </nav>
+
+    <div class="px-20 py-3 flex justify-between border-2 border-b-gray-200 border-x-white border-t-white">
+        <a href='#' class="font-semibold text-md border-2 border-gray-800 p-1 rounded-md">Categoria +</a>
+        <a href="#" class="text-md font-semibold hover: text-black-500 border-2 border-gray-800 p-1 rounded-sm">Dia ▲ | Mes ▲ | Ano ▲</a>
+    </div>
+
+    <div class="grid grid-cols-4 gap-10 mx-20 my-5">
+        <img class= "w-full aspect-square drop-shadow-md border-2 border-gray-200 rounded-md" src="https://learn.microsoft.com/pt-br/sql/reporting-services/media/report-builder-column-chart-1-preview.png?view=sql-server-ver16" />
+        <img class= "w-full aspect-square drop-shadow-md border-2 border-gray-200 rounded-md" src="https://www.researchgate.net/publication/307442068/figure/fig6/AS:400830067953665@1472576743109/Figura-6-Grafico-demonstrativo-do-percentual-de-remocao-da-DQO-ao-longo-do-periodo-de.png" />
+        <img class= "w-full aspect-square drop-shadow-md border-2 border-gray-200 rounded-md" src="https://i0.wp.com/noic.com.br/wp-content/uploads/2017/09/aula-3-imagem-4.gif?resize=493%2C344" />
+        <img class= "w-full aspect-square drop-shadow-md border-2 border-gray-200 rounded-md" src="https://www.researchgate.net/profile/Daniel-Guimaraes-6/publication/267768329/figure/fig3/AS:669498709393424@1536632339609/Figura-3-Sobreposicao-do-curso-vetorizado-do-rio-Sao-Francisco-sobre-imagem.jpg" />
+    </div>
+{% endblock %}
