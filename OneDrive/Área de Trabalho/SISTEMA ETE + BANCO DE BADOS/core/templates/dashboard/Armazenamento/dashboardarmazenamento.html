@@ -1,0 +1,103 @@
+{% extends 'baseTailWindCss.html' %}
+
+{% block title %}ARMAZENAMENTO {% endblock %}
+
+{% block content %}
+    </head>
+
+    <body>
+    <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200 bg-blue-600">
+        <a href="/dashboard" class="text-6xl font-bold text-white px-10 flex items-center">
+            <span class="mr-2">&#8592;</span>
+        </a>
+        <a href="#" class="text-6xl font-bold text-white px-10 flex items-center">
+            <span>Armazenamento da Água</span>
+        </a>
+    </nav>
+    <div class="px-2 py-2">
+    <div class="grid grid-cols-3 gap-4 mx-10 my-5 bg-blue-600 rounded-lg shadow-lg">
+        <div class="py-4 px-4">
+            <div class="">
+                <div class="mx-3 mt-3">
+                    <h3 class="font-bold text-white text-2xl">UNIDADES DE ARMAZENAMENTO</h3>
+                    <div class="grid grid-rows-2 text-xl mt-8 font-medium">
+
+                        <span class="font-bold text-2xl text-white">BOMBA DE CAPTAÇÃO</span>
+                        <span id= "ARMAZENAMENTO-X" class="font-bold text-white">Status: Em andamento</span>
+
+                        <div class="font-bold text-2xl flex justify-center items-center mt-4">
+                            <button id="X-ARMAZENAMENTO" class="bg-red-500 text-white py-2 px-4 rounded-full" onclick="toggleStatus('ARMAZENAMENTO')">Desativar </button>
+                        </div>
+
+                        <span class="font-bold text-2xl text-white mt-4">TANQUE DE RECEPTAÇÃO</span>
+                        <span id= "TANQUE-X" class="font-bold text-white">Status: Em andamento</span>
+                    </div>
+
+                    <div class="font-bold text-2xl flex justify-center items-center mt-4">
+                        <button id="X-TANQUE" class="bg-red-500 text-white py-2 px-4 rounded-full" onclick="toggleStatus('TANQUE')">Desativar </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-xl mt-4 text-white font-medium">
+            <div class="px-8 py-3 drop-shadow-md">
+                <img class= "rounded-lg shadow-lg" src="https://www.atontecnologia.com.br/wp-content/uploads/2019/09/Bomba-de-%C3%A1gua.jpg"/>
+                <div class= "grid grid-rows-3" >
+                    <span>UNIDADE 1: BOMBA DE CAPTAÇÃO</span>
+                    <span>● Capacidade MAX por segundo: 2000L/s</span>
+                    <span>● NÍVEL DE POTENCIA DAS BOMBAS: 50%</span>
+                    <span>● STATUS DE ENTRADA:🟩</span>
+                    <span>● STATUS DO APARELHO:🟨</span>
+                    <span>● STATUS DA SAIDA:🟩</span>
+
+                </div>
+            </div>
+        </div>
+        <div class=" text-xl mt-4 text-white font-medium">
+            <div class=" px-3 py-3 drop-shadow-md">
+                <img class= " rounded-lg shadow-lg" src="https://projetoambiental.com.br/wp-content/uploads/2022/05/estacao-de-tratamento-de-agua.jpg.jpg"/>
+                <div class= "grid grid-rows-3" >
+                    <span>UNIDADE 2: TANQUE DE RECEPTAÇÃO</span>
+                    <span>● Capacidade MAX por tanque: 20000L</span>
+                    <span>● NÍVEL DOS TANQUES: 25%</span>
+                    <span>● STATUS DE ENTRADA:🟩</span>
+                    <span>● STATUS DO APARELHO:🟨</span>
+                    <span>● STATUS DA SAIDA:🟥</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleStatus(ativoId) {
+            const button = document.getElementById(`X-${ativoId}`);
+            const statusSpan = document.getElementById(`${ativoId}-X`);
+
+            Swal.fire({
+                title: 'Confirmação',
+                text: `Tem certeza que deseja ${button.innerText.toLowerCase()} o processo?`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (button.innerText === "Ativar") {
+                        button.innerText = "Desativar";
+                        button.classList.remove("bg-green-500");
+                        button.classList.add("bg-red-500");
+                        statusSpan.innerText = "Status: Em andamento";
+                    } else {
+                        button.innerText = "Ativar";
+                        button.classList.remove("bg-red-500");
+                        button.classList.add("bg-green-500");
+                        statusSpan.innerText = "Status: Desativado";
+                    }
+                }
+            })
+        }
+    </script>
+
+{% endblock %}

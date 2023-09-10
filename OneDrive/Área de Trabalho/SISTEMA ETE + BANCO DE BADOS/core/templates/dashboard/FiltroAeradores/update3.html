@@ -1,0 +1,20 @@
+{% extends 'baseTailWindCss.html' %}
+
+{% block title %}updade3{% endblock %}
+
+{% block content %}
+
+<body>
+
+    {{ DADOS3.id }} - {{ DADOS3.dado3 }}
+
+    <form action="{% url 'update3' DADOS3.id %}" method="POST">
+
+        {% csrf_token %}
+        <input type="text" name="nome3" value = '{{ DADOS3.dado3 }}'>
+        <button type="submit">Update</button>
+
+    </form>
+    
+</body>
+{% endblock %}
