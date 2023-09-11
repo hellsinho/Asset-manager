@@ -38,44 +38,57 @@ def estatisticasAleatorias_view(request):
 def controlar_view(request):
     return render(request, 'dashboard/Controlar/dashboardControle.html')
 
-
-from django.utils import timezone  # Importe a biblioteca timezone
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import HistoricoAtivacao, UnidadeFloculacao, SistemaCoagulacao, UnidadePrecipitacao, TanqueAjustePH
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 
 @login_required
+@csrf_exempt
+def registra_historico(request):
+    if request.method == 'POST' and request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+        ativo_nome = request.POST.get('ativo')
+        acao = request.POST.get('acao')
+
+        if ativo_nome and acao:
+            try:
+                ativo_encontrado = False
+                ativos = ["UnidadePrecipitacao", "TanqueAjustePH", "SistemaCoagulacao", "UnidadeFloculacao"]
+
+                # Verifique se o ativo está em algum tipo de ativo e registre apenas uma vez
+                for tipo_ativo in ativos:
+                    if ativo_nome == tipo_ativo:
+                        ativo_encontrado = True
+                        historico = HistoricoAtivacao.objects.create(ativo=ativo_nome, acao=acao, usuario=request.user)
+                        historico.save()
+                        break  # Saia do loop assim que o histórico for registrado
+
+                if not ativo_encontrado:
+                    return JsonResponse({'error': f'Nenhum ativo encontrado com o nome "{ativo_nome}".'}, status=400)
+
+                return JsonResponse({'message': 'Histórico registrado com sucesso!'})
+
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=500)
+        else:
+            return JsonResponse({'error': 'Parâmetros ausentes.'}, status=400)
+
+    return JsonResponse({'error': 'Método inválido ou não é uma solicitação AJAX.'}, status=400)
+@login_required
 def controlarHistorico_view(request):
-    if not HistoricoAtivacao.objects.exists():
-        # Criação de exemplos de registros fictícios com descrições de ações amigáveis
-        exemplos = [
-            {'ativo': 'Floculação', 'acao': 'Ativado'},
-            {'ativo': 'Coagulação', 'acao': 'Desativado'},
-            {'ativo': 'Precipitação', 'acao': 'Ativado'},
-            {'ativo': 'Ajuste de pH', 'acao': 'Desativado'},
-        ]
+    # Recupere o histórico para cada tipo de ativo
+    historico_ajuste_pH = HistoricoAtivacao.objects.filter(ativo="TanqueAjustePH")
+    historico_precipitacao = HistoricoAtivacao.objects.filter(ativo="UnidadePrecipitacao")
+    historico_coagulacao = HistoricoAtivacao.objects.filter(ativo="SistemaCoagulacao")
+    historico_floculacao = HistoricoAtivacao.objects.filter(ativo="UnidadeFloculacao")
 
-        for exemplo in exemplos:
-            HistoricoAtivacao.objects.create(
-                ativo=exemplo['ativo'],
-                acao=exemplo['acao'],
-                usuario=request.user,
-                data=timezone.now()
-            )
-
-    historico = HistoricoAtivacao.objects.all()
-
-    # Dicionário de mapeamento de nomes de ativos para descrições amigáveis
-    descricao_ativos = {
-        'floculacao': 'Unidade de Floculação',
-        'coagulacao': 'Sistema de Coagulação',
-        'precipitacao': 'Unidade de Precipitação',
-        'ajuste-pH': 'Tanque de Ajuste de pH',
-    }
-
-    # Atualiza os nomes dos ativos com as descrições amigáveis
-    for acao in historico:
-        acao.ativo = descricao_ativos.get(acao.ativo, acao.ativo)
-
-    return render(request, 'dashboard/Controlar/dashboardHistorico.html', {'historico': historico})
-
+    return render(request, 'dashboard/Controlar/dashboardHistorico.html', {
+        'historico_ajuste_pH': historico_ajuste_pH,
+        'historico_precipitacao': historico_precipitacao,
+        'historico_coagulacao': historico_coagulacao,
+        'historico_floculacao': historico_floculacao,
+    })
 
 @login_required
 def analisar_view(request):
@@ -96,35 +109,4 @@ def gradeamento_view(request):
 @login_required
 def sedimentacao_view(request):
     return render(request, 'dashboard/Sedimentacao_coleta/sedimentacao.html')
-
-import json
-import time  # Importe a biblioteca time
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from .models import HistoricoAtivacao
-
-@csrf_exempt
-@login_required
-def registra_historico(request):
-    if request.method == 'POST' and request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
-        data = json.loads(request.body)
-        ativo = data.get('ativo')
-        acao = data.get('acao')
-        usuario = request.user if request.user.is_authenticated else None
-
-        if ativo and acao:
-            # Registra a ação no histórico imediatamente
-            HistoricoAtivacao.objects.create(ativo=ativo, acao=acao, usuario=usuario)
-
-            # Se a ação for "Ativado", espere 10 segundos e registre automaticamente a desativação
-            if acao == "Ativado":
-                time.sleep(10)  # Espera por 10 segundos
-                HistoricoAtivacao.objects.create(ativo=ativo, acao="Desativado automaticamente", usuario=None)
-
-            return JsonResponse({'success': True})
-        else:
-            return JsonResponse({'success': False, 'error': 'Dados inválidos.'})
-    else:
-        return JsonResponse({'success': False, 'error': 'Método inválido.'})
-
 
