@@ -15,6 +15,7 @@
         </a>
     </nav>
 
+    {% for s in sedimentacao %}
     
     <div class="mx-6 my-6">
         <div class="grid grid-flow-col grid-rows-2 grid-cols-3 m-10 gap-y-10">
@@ -22,8 +23,8 @@
             <div class="grid justify-items-start bg-blue-600 shadow rounded-lg py-10 mx-10 text-white">
                 <h3 class="justify-self-center mb-8 text-3xl font-bold">Sedimentação</h3>
                 <div class="grid grid-rows-3 px-20 mb-8">
-                    <span class="text-lg"><strong>Processo: <span class="font-normal">Em andamento</span></strong></span>
-                    <span class="text-lg"><strong>Capacidade: <span class="font-normal">12.000 L</span></strong></span>
+                    <span class="text-lg"><strong>Processo: <span class="font-normal">{{ s.processo }}</span></strong></span>
+                    <span class="text-lg"><strong>Capacidade: <span class="font-normal">{{ s.capacidade }} L</span></strong></span>
                     
                     <div class="flex flex-row justify-self-center">
                         <span class="text-lg"><strong>Tempo de Sedimentação:</strong></span>
@@ -45,10 +46,10 @@
 
                     <div class="grid justify-items-start py-10 text-white mt-10">
                         <div class="flex flex-col gap-3  mb-8">
-                            <span class="text-lg"><strong>Nível do tank: <span class="text-amber-300">74%</span></strong></span>
-                            <span class="text-lg"><strong>Etapa: <span class="font-normal">Escoamento</span></strong></span>
-                            <span class="text-lg"><strong>Viscosidade: <span class="font-normal">1,002 </span>cP</strong></span>
-                            <span class="text-lg"><strong>Tempo estimado: <span class="font-normal">24min</span></strong></span>
+                            <span class="text-lg"><strong>Nível do tank: <span class="text-amber-300">{{ s.nivel_tanque }}</span></strong></span>
+                            <span class="text-lg"><strong>Etapa: <span class="font-normal">{{ s.etapa }}</span></strong></span>
+                            <span class="text-lg"><strong>Viscosidade: <span class="font-normal">{{ s.viscosidade }}</span>cP</strong></span>
+                            <span class="text-lg"><strong>Tempo estimado: <span class="font-normal">{{ s.tempo_estimado }}</span>min</strong></span>
                             <div class="flex flex-row gap-2 ">
                                 <div class="mt-1.5 w-4 h-4 bg-green-500 rounded-full"></div>
                                 <span class="text-lg"><strong>Status aparelho</strong></span>
@@ -67,6 +68,9 @@
                 </div>
                 
             </div>
+
+
+            {% endfor %}
             <!-- Fim sedimentação -->
             
             <div class="grid row-start-2 justify-items-start bg-blue-600 shadow rounded-lg py-10 mx-10 text-white">

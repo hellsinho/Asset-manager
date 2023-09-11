@@ -15,5 +15,5 @@ urlpatterns = [
     path('dashboard/analisar', views.analisar_view, name='analisar'),
     path('dashboard/armazenamento', views.armazenamento_view, name='armazenamento'),
     path('dashboard/gradeamento', views.gradeamento_view, name='gradeamento'),
-    path('dashboard/sedimentacao', views.sedimentacao_view, name='sedimentacao'),
+    path('dashboard/sedimentacao/', views.sedimentacao_view, name='sedimentacao'),
 ]

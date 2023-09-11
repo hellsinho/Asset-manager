@@ -2,6 +2,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from .models import Sedimentacao
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -59,7 +61,5 @@ def gradeamento_view(request):
 
 @login_required
 def sedimentacao_view(request):
-    return render(request, 'dashboard/sedimentacao_coleta/sedimentacao.html')
-
-
-
+    sedimentacao = Sedimentacao.objects.all()
+    return render(request, 'dashboard/sedimentacao_coleta/sedimentacao.html', {'sedimentacao': sedimentacao})
