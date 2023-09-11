@@ -18,7 +18,7 @@
     {% for s in sedimentacao %}
     
     <div class="mx-6 my-6">
-        <div class="grid grid-flow-col grid-rows-2 grid-cols-3 m-10 gap-y-10">
+        <div class="grid grid-flow-col grid-rows-1 grid-cols-3 m-10 gap-y-10">
             <!-- Box sedimentação -->
             <div class="grid justify-items-start bg-blue-600 shadow rounded-lg py-10 mx-10 text-white">
                 <h3 class="justify-self-center mb-8 text-3xl font-bold">Sedimentação</h3>
@@ -41,7 +41,7 @@
             <div class="row-start-1 col-start-2 col-span-2  bg-gray-700 shadow rounded-lg self-start">
                 <div class="grid grid-cols-2 gap-0">
                     <div class="grid place-items-center m-6">
-                        <img class= "rounded-lg shadow-lg w-8/12" src="https://acemax.com.br/wp-content/uploads/2019/01/190114-pre_tratamento.jpeg"/>
+                        <img class= "rounded-lg shadow-lg w-6/12" src="https://i.ibb.co/cJTsPkW/Tanque-cilindrico-vertical-de-12000-litros-27-12000-00-84-XX-Photo-Room-png-Photo-Room.png" alt="Tanque-cilindrico-vertical-de-12000-litros-27-12000-00-84-XX-Photo-Room-png-Photo-Room" border="0" />
                     </div>
 
                     <div class="grid justify-items-start py-10 text-white mt-10">
@@ -68,59 +68,8 @@
                 </div>
                 
             </div>
-
-
             {% endfor %}
             <!-- Fim sedimentação -->
-            
-            <div class="grid row-start-2 justify-items-start bg-blue-600 shadow rounded-lg py-10 mx-10 text-white">
-                <h3 class="justify-self-center mb-8 text-3xl font-bold">Sedimentação</h3>
-                <div class="grid grid-rows-3 px-20 mb-8">
-                    <span class="text-lg"><strong>Processo: <span class="font-normal">Em andamento</span></strong></span>
-                    <span class="text-lg"><strong>Capacidade: <span class="font-normal">12.000 L</span></strong></span>
-                    
-                    <div class="flex flex-row">
-                        <span class="text-lg"><strong>Tempo de Sedimentação:</strong></span>
-                        <input class="rounded-lg w-10 mx-2" type="number" name="tempo_sedimentacao" id="tempo_sedimentacao">
-                        <span class="text-lg"><strong>min</strong></span>
-                    </div>
-                </div>
-                <div class="justify-self-center">
-                    <button id="X-COLETA" class="bg-green-500 font-medium text-3xl px-10 py-3 rounded-lg" onclick="toggleStatus('COLETA')">Ativar</button>
-                </div>
-            </div>
-
-
-            <div class="row-start-2 col-start-2 col-span-2  bg-gray-700 shadow rounded-lg self-start">
-                <div class="grid grid-cols-2 gap-0">
-                    <div class="grid place-items-center m-6">
-                        <img class= "rounded-lg shadow-lg w-8/12" src="https://acemax.com.br/wp-content/uploads/2019/01/190114-pre_tratamento.jpeg"/>
-                    </div>
-
-                    <div class="grid justify-items-start py-10 text-white mt-10">
-                        <div class="flex flex-col gap-3  mb-8">
-                            <span class="text-lg"><strong>Nível do tank: <span class="text-amber-300">74%</span></strong></span>
-                            <span class="text-lg"><strong>Etapa: <span class="font-normal">Escoamento</span></strong></span>
-                            <span class="text-lg"><strong>Viscosidade: <span class="font-normal">1,002 </span>cP</strong></span>
-                            <span class="text-lg"><strong>Tempo estimado: <span class="font-normal">24min</span></strong></span>
-                            <div class="flex flex-row gap-2 ">
-                                <div class="mt-1.5 w-4 h-4 bg-green-500 rounded-full"></div>
-                                <span class="text-lg"><strong>Status aparelho</strong></span>
-                            </div>
-                            <div class="flex flex-row gap-2 ">
-                                <div class="mt-1.5 w-4 h-4 bg-red-500 rounded-full"></div>
-                                <span class="text-lg"><strong>Status entrada</strong></span>
-                            </div>
-                            <div class="flex flex-row gap-2 ">
-                                <div class="mt-1.5 w-4 h-4 bg-green-500 rounded-full"></div>
-                                <span class="text-lg"><strong>Status saída</strong></span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                
-            </div>
     </div>
 
     <script>
