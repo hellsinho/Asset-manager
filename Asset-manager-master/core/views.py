@@ -8,6 +8,9 @@ from .models import dados1
 from .models import dados2
 from .models import dados3
 
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import HistoricoAtivacao, UnidadeFloculacao, SistemaCoagulacao, UnidadePrecipitacao, TanqueAjustePH
 
 @login_required
 def filtroseaeradores_view(request):
@@ -169,8 +172,50 @@ def controlar_view(request):
     return render(request, 'dashboard/Controlar/dashboardControle.html')
 
 @login_required
+@csrf_exempt
+def registra_historico(request):
+    if request.method == 'POST' and request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+        ativo_nome = request.POST.get('ativo')
+        acao = request.POST.get('acao')
+
+        if ativo_nome and acao:
+            try:
+                ativo_encontrado = False
+                ativos = ["UnidadePrecipitacao", "TanqueAjustePH", "SistemaCoagulacao", "UnidadeFloculacao"]
+
+                # Verifique se o ativo está em algum tipo de ativo e registre apenas uma vez
+                for tipo_ativo in ativos:
+                    if ativo_nome == tipo_ativo:
+                        ativo_encontrado = True
+                        historico = HistoricoAtivacao.objects.create(ativo=ativo_nome, acao=acao, usuario=request.user)
+                        historico.save()
+                        break  # Saia do loop assim que o histórico for registrado
+
+                if not ativo_encontrado:
+                    return JsonResponse({'error': f'Nenhum ativo encontrado com o nome "{ativo_nome}".'}, status=400)
+
+                return JsonResponse({'message': 'Histórico registrado com sucesso!'})
+
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=500)
+        else:
+            return JsonResponse({'error': 'Parâmetros ausentes.'}, status=400)
+
+    return JsonResponse({'error': 'Método inválido ou não é uma solicitação AJAX.'}, status=400)
+@login_required
 def controlarHistorico_view(request):
-    return render(request, 'dashboard/Controlar/dashboardHistorico.html')
+    # Recupere o histórico para cada tipo de ativo
+    historico_ajuste_pH = HistoricoAtivacao.objects.filter(ativo="TanqueAjustePH")
+    historico_precipitacao = HistoricoAtivacao.objects.filter(ativo="UnidadePrecipitacao")
+    historico_coagulacao = HistoricoAtivacao.objects.filter(ativo="SistemaCoagulacao")
+    historico_floculacao = HistoricoAtivacao.objects.filter(ativo="UnidadeFloculacao")
+
+    return render(request, 'dashboard/Controlar/dashboardHistorico.html', {
+        'historico_ajuste_pH': historico_ajuste_pH,
+        'historico_precipitacao': historico_precipitacao,
+        'historico_coagulacao': historico_coagulacao,
+        'historico_floculacao': historico_floculacao,
+    })
 
 @login_required
 def analisar_view(request):
