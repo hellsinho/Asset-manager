@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+    <title>{% block title %} {% endblock %}</title>
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .modal.open {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-800">
+<nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200 bg-blue-600">
+    <a href="#" class="text-5xl font-bold text-white px-10">Sistema ETE</a>
+    <div class="space-x-6 px-20">
+        <a href="#settingsModal" class="text-white text-2xl font-semibold hover:text-gray-500">⚙️Configurações</a>
+        <a href="#notificationsModal" class="text-white text-2xl font-semibold hover:text-gray-100">🔔Notificações</a>
+    </div>
+</nav>
+
+<div class="py-4 px-6 flex justify-between items-center mb-10 border-2 border-b-black-500 border-x-white border-t-white">
+    <div>
+        <label class="relative block">
+            <!-- ... Search input ... -->
+        </label>
+    </div>
+    <div class="mr-20">
+        <a href="/dashboard/ativos/" class="aspect-square rounded-md px-2 py-1 font-bold text-white border-2 bg-blue-600">Gestão de Ativos</a>
+    </div>
+</div>
+
+{% block content %}{% endblock %}
+
+<!-- Notifications Modal -->
+<div id="notificationsModal" class="modal">
+    <div class="modal-content bg-white dark:bg-gray-800">
+        <p class="text-gray-600 dark:text-gray-400 p-4">Você tem uma nova mensagem:</p>
+        <p class="text-gray-800 dark:text-white p-4 bg-gray-200 dark:bg-gray-600">Atenção: Haverá uma manutenção programada no sistema amanhã às 10h.</p>
+    </div>
+</div>
+
+<!-- Settings Modal -->
+<div id="settingsModal" class="modal">
+    <div class="modal-content bg-white dark:bg-gray-800">
+        <h2 class="text-2xl font-semibold p-4">Configurações</h2>
+        <button id="darkModeButton" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Ativar Modo Escuro</button>
+        <button id="lightModeButton" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 ml-4">Desativar Modo Escuro</button>
+    </div>
+</div>
+
+<script>
+    // Script para abrir e fechar os modais
+    const modals = document.querySelectorAll('.modal');
+    const settingsModalTrigger = document.querySelector('[href="#settingsModal"]');
+    const notificationsModalTrigger = document.querySelector('[href="#notificationsModal"]');
+    const modalContents = document.querySelectorAll('.modal-content');
+
+    settingsModalTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        modals[1].classList.add('open');
+    });
+
+    notificationsModalTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        modals[0].classList.add('open');
+    });
+
+    modalContents.forEach((content) => {
+        content.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    });
+
+    modals.forEach((modal) => {
+        modal.addEventListener('click', () => {
+            modal.classList.remove('open');
+        });
+    });
+
+    // Ativar Modo Escuro
+    const darkModeButton = document.getElementById('darkModeButton');
+    darkModeButton.addEventListener('click', () => {
+        Swal.fire({
+            title: 'Modo Escuro ativado!',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false
+        });
+        // Coloque aqui a lógica para ativar o modo escuro
+    });
+
+    // Desativar Modo Escuro
+    const lightModeButton = document.getElementById('lightModeButton');
+    lightModeButton.addEventListener('click', () => {
+        Swal.fire({
+            title: 'Modo Escuro desativado!',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false
+        });
+        // Coloque aqui a lógica para desativar o modo escuro
+    });
+</script>
+</body>
+</html>

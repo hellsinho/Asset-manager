@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISTEMA-ETE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+<nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200 bg-blue-600">
+    <a href="/dashboard" class="text-6xl font-bold text-white px-10 flex items-center">
+        <span class="mr-2">&#8592;</span>
+    </a>
+    <a href="#" class="text-6xl font-bold text-white px-10 flex items-center">
+        <span>Análise e Monitoramento</span>
+    </a>
+</nav>
+
+<div class="container mx-auto px-8 py-12">
+    <div class="bg-white rounded-lg shadow-lg p-6 text-gray-800">
+        <div class="text-center">
+            <img class="rounded-lg shadow-lg mx-auto" src="https://i.ibb.co/NZ7dQmq/analise-fisico-quimica-01.jpg" alt="Laboratorio de Analise">
+            <div class="mt-6">
+                <span class="font-bold text-xl block">ANÁLISE FÍSICO QUÍMICA</span>
+                <span>● Processo do PH:</span>
+                <span>● NÍVEL DO PH: 7 🟩</span>
+                <span>● STATUS DO PH: NEUTRO 🟩</span>
+                <span>● AMÔNIA: 1,2mg/L 🟩</span>
+                <span>● NITRITO: 1,0mg/L 🟩</span>
+                <span>● CLORO RESIDUAL: 5,0mg/L🟩</span>
+            </div>
+        </div>
+        <div class="text-center mt-6">
+            <span class="bg-green-500 text-white py-1 px-3 rounded-full">STATUS: PRONTO PARA CONSUMO</span>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg p-6 text-gray-800">
+            <div class="text-center">
+                <img class="rounded-lg shadow-lg mx-auto" src="https://i.ibb.co/GHkrqMj/analise-microbiologica-01.jpg" alt="ANÁLISE MICROBIOLÓGICA">
+                <div class="mt-6">
+                    <span class="font-bold text-xl block">ANÁLISE MICROBIOLÓGICA</span>
+                    <span>● BACILIUS CEREUS:</span>
+                    <span>● UNIDADE: UFC/g 🟩</span>
+                    <span>● RESULTADO: LQ 🟩</span>
+                    <span>● LD: 3,33 🟩</span>
+                    <span>● LQ: 10 🟩</span>
+                    <span>● DATA DA ANÁLISE: 25/05/2023</span>
+                    
+                    <div class="text-center mt-6">
+                    <span class="bg-green-500 text-white py-1 px-3 rounded-full">STATUS: PRONTO PARA CONSUMO</span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center">
+    <div class="bg-white rounded-lg p-8 max-w-md">
+        <h2 class="text-xl font-bold mb-4">Confirmação</h2>
+        <p class="text-gray-700 mb-6">Tem certeza que deseja desativar o processo?</p>
+        <div class="flex justify-end">
+            <button class="btn-status bg-green-500 mr-2" onclick="confirmAction(true)">Sim</button>
+            <button class="btn-status bg-red-500" onclick="confirmAction(false)">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let activeId;
+
+    function toggleStatus(ativoId) {
+        activeId = ativoId;
+        const overlay = document.getElementById('overlay');
+        overlay.classList.remove('hidden');
+    }
+
+    function confirmAction(isConfirmed) {
+        if (isConfirmed) {
+            const button = document.getElementById(`X-${activeId}`);
+            const statusSpan = document.getElementById(`${activeId}-X`);
+            const isActive = button.innerText === 'Ativar';
+
+            if (isActive) {
+                button.innerText = 'Desativar';
+                button.classList.remove('bg-green-500');
+                button.classList.add('bg-red-500');
+                statusSpan.innerText = 'Status: Em andamento';
+            } else {
+                button.innerText = 'Ativar';
+                button.classList.remove('bg-red-500');
+                button.classList.add('bg-green-500');
+                statusSpan.innerText = 'Status: Desativado';
+            }
+        }
+
+        const overlay = document.getElementById('overlay');
+        overlay.classList.add('hidden');
+    }
+</script>
+</body>
+</html>
